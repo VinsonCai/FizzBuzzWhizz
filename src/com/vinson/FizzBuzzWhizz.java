@@ -3,12 +3,9 @@
  */
 package com.vinson;
 
-import com.vinson.processors.BuzzProcessor;
-import com.vinson.processors.DefaultProcessor;
-import com.vinson.processors.FizzBuzzWhizzProcessor;
+import com.vinson.annotation.AnnotationParser;
 import com.vinson.processors.FizzProcessor;
 import com.vinson.processors.IProcessor;
-import com.vinson.processors.WhizzProcessor;
 
 /**
  * @author VinsonCai
@@ -45,13 +42,9 @@ public class FizzBuzzWhizz {
 	private IProcessor compositeProcessors() {
 		IProcessor head = null;
 
-		DefaultProcessor def = new DefaultProcessor(null);
-		FizzBuzzWhizzProcessor fizzBuzzWhizzProcessor = new FizzBuzzWhizzProcessor(def);
-		WhizzProcessor whizzProcessor = new WhizzProcessor(fizzBuzzWhizzProcessor);
-		BuzzProcessor buzzProcessor = new BuzzProcessor(whizzProcessor);
-		FizzProcessor fizzProcessor = new FizzProcessor(buzzProcessor);
+		AnnotationParser parser = AnnotationParser.getInstance();
+		head = parser.getProcessorChain(FizzProcessor.class);
 
-		head = fizzProcessor;
 		return head;
 	}
 

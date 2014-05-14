@@ -4,24 +4,21 @@
 package com.vinson.processors;
 
 import com.vinson.Entity;
+import com.vinson.annotation.ProcessorAnnotation;
 
 /**
  * @author VinsonCai
- *
+ * 
  */
-public class BuzzProcessor extends AbstractProcessor{
-
-	public BuzzProcessor(IProcessor pNextProcessor) {
-		super(pNextProcessor);
-	}
+@ProcessorAnnotation(speakWord = "Buzz", nextProcesorClass = "com.vinson.processors.WhizzProcessor")
+public class BuzzProcessor extends AbstractProcessor {
 
 	@Override
 	public String process(int pNum, Entity pEntity, String pPrevious) {
 		String say = pPrevious;
-		if(pNum % pEntity.mSecond == 0){
-			say += "Buzz";
+		if (pNum % pEntity.mSecond == 0) {
+			say += mSpeakWord;
 		}
 		return mNextProcessor.process(pNum, pEntity, say);
 	}
-
 }
